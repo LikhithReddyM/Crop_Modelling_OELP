@@ -1,4 +1,5 @@
 pandas
 streamlit_option_menu
 keras
+tensorflow
 streamlit==1.16.0
