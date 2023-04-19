@@ -1,2 +1,3 @@
 pandas
+streamlit_option_menu
 streamlit==1.16.0
