@@ -3,5 +3,5 @@ pandas
 streamlit_option_menu
 keras
 tensorflow
-sklearn
+scikit-learn
 streamlit==1.16.0
