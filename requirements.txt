@@ -1,0 +1,2 @@
+pandas
+streamlit==1.1*
