@@ -1,0 +1,7 @@
+pip==23.1
+pandas
+streamlit_option_menu
+keras
+tensorflow
+scikit-learn
+streamlit==1.16.0
