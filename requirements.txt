@@ -1,7 +1,7 @@
-pip==23.1
+pip3==23.1.2
 pandas
 streamlit_option_menu
 keras
 tensorflow
 scikit-learn
-streamlit==1.16.0
+streamlit==1.22.0
