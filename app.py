@@ -84,110 +84,162 @@ def irrigationwater(Tmax, Tmin, RHmin, RHmax, z, latirad, n, uz, G, IrrigationIn
 def pest_alert(tmin, tmax, humidity, crop):
       if crop == 'Soybean':
             if tmin > tmax or humidity >= 90 or humidity <= 40:
-                  return
+                return
             pest = []
             disease = []
             trange = 0
             if tmin >= 10:
-                  if tmax <= 25:
-                        trange = 1
-                  elif tmax <= 30:
-                        if tmin >= 25:
-                              trange = 4
-                        elif tmin >= 20:
-                              trange = 3
-                        elif tmin >= 15:
-                              trange = 2
+                if tmax <= 25:
+                    trange = 1
+                elif tmax <= 30:
+                    if tmin >= 25:
+                        trange = 4
+                    elif tmin >= 20:
+                        trange = 3
+                    elif tmin >= 15:
+                        trange = 2
             if trange == 1 and humidity >= 70:
-                  disease.append('Septoria Leaf blight')
+                disease.append('Septoria Leaf blight')
             elif trange == 2 and humidity <= 70:
-                  pest.append('Aphids')
+                pest.append('Aphids')
             elif trange == 3:
-                  if humidity <= 50:
-                        disease.append('Rhizoctonia stem rot')
-                        pest.append('Bean Leaf Beetle')
-                  elif humidity <= 70:
-                        pest.append('Green Cloverworm')
-                        disease.append('Rhizoctonia stem rot')
-                        pest.append('Bean Leaf Beetle')
-                  elif humidity <= 75:
-                        pest.append('Green Cloverworm')
-                  elif humidity <= 80:
-                        disease.append('Bacterial blight')
-                        pest.append('Green Cloverworm')
-                  elif humidity <= 85:
-                        disease.append('Rust')
-                        disease.append('Bacterial blight')
-                  else:
-                        disease.append('Rust')
+                if humidity <= 50:
+                    disease.append('Rhizoctonia stem rot')
+                    pest.append('Bean Leaf Beetle')
+                elif humidity <= 70:
+                    pest.append('Green Cloverworm')
+                    disease.append('Rhizoctonia stem rot')
+                    pest.append('Bean Leaf Beetle')
+                elif humidity <= 75:
+                    pest.append('Green Cloverworm')
+                elif humidity <= 80:
+                    disease.append('Bacterial blight')
+                    pest.append('Green Cloverworm')
+                elif humidity <= 85:
+                    disease.append('Rust')
+                    disease.append('Bacterial blight')
+                else:
+                    disease.append('Rust')
             elif trange == 4 and humidity >= 40 and humidity <= 60:
-                  pest.append('Stem Borers')
-                  if humidity >= 50:
-                        disease.append('Sclerotinia stem rot')
+                pest.append('Stem Borers')
+                if humidity >= 50:
+                    disease.append('Sclerotinia stem rot')
             l = []
             if pest:
-                  l.append('1')
-                  l.append(pest)
-                  #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
+                l.append('1')
+                l.append(pest)
+                #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
             if disease:
-                  l.append('2')
-                  l.append(disease)
-                  #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
+                l.append('2')
+                l.append(disease)
+                #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
             return l
       elif crop == 'Corn':
             if tmin > tmax or humidity >= 90 or humidity <= 40:
-                  return
+                return
             pest = []
             disease = []
             trange = 0
             if tmin >= 10:
-                  if tmax <= 25:
-                        trange = 1
-                  elif tmax <= 30:
-                        if tmin >= 25:
-                              trange = 4
-                        elif tmin >= 20:
-                              trange = 3
-                        elif tmin >= 15:
-                              trange = 2
+                if tmax <= 25:
+                    trange = 1
+                elif tmax <= 30:
+                    if tmin >= 25:
+                        trange = 4
+                    elif tmin >= 20:
+                        trange = 3
+                    elif tmin >= 15:
+                        trange = 2
             if trange == 1 and humidity >= 70:
-                  disease.append('Bacterial Leaf Blight')
+                disease.append('Bacterial Leaf Blight')
             elif trange == 2 and humidity <= 70:
-                  pest.append('Aphids')
+                pest.append('Aphids')
             elif trange == 3:
-                  if humidity <= 50:
-                        pest.append('Spider Mites')
-                        disease.append('Downy Mildew')
-                        pest.append('Flea beetles')
-                  elif humidity <= 60:
-                        pest.append('Spider Mites')
-                  elif humidity <= 70:
-                        pest.append('Cutworms')
-                        disease.append('Downy Mildew')
-                        pest.append('Flea beetles')
-                  elif humidity <= 75:
-                        pest.append('Cutworms')
-                  elif humidity <= 80:
-                        disease.append('Southern Corn Blight')
-                        pest.append('Cutworms')
-                  elif humidity <= 85:
-                        disease.append('Cercospora leaf spot')
-                        disease.append('Southern Corn Blight')
-                  else:
-                        disease.append('Cercospora leaf spot')
+                if humidity <= 50:
+                    pest.append('Spider Mites')
+                    disease.append('Downy Mildew')
+                    pest.append('Flea beetles')
+                elif humidity <= 60:
+                    pest.append('Spider Mites')
+                elif humidity <= 70:
+                    pest.append('Cutworms')
+                    disease.append('Downy Mildew')
+                    pest.append('Flea beetles')
+                elif humidity <= 75:
+                    pest.append('Cutworms')
+                elif humidity <= 80:
+                    disease.append('Southern Corn Blight')
+                    pest.append('Cutworms')
+                elif humidity <= 85:
+                    disease.append('Cercospora leaf spot')
+                    disease.append('Southern Corn Blight')
+                else:
+                    disease.append('Cercospora leaf spot')
             elif trange == 4 and humidity >= 40 and humidity <= 60:
-                  pest.append('Thrips')
-                  if humidity >= 50:
-                        disease.append('Stewart\'s wilt')
+                pest.append('Thrips')
+                if humidity >= 50:
+                    disease.append('Stewart\'s wilt')
             l = []
             if pest:
-                  l.append('1')
-                  l.append(pest)
-                  #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
+                l.append('1')
+                l.append(pest)
+                #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
             if disease:
-                  l.append('2')
-                  l.append(disease)
-                  #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
+                l.append('2')
+                l.append(disease)
+                #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
+            return l
+      elif crop == 'Tomato':
+            if tmin > tmax or humidity >= 90 or humidity <= 40:
+                return
+            pest = []
+            disease = []
+            trange = 0
+            if tmin >= 10:
+                if tmax <= 25:
+                    trange = 1
+                elif tmax <= 30:
+                    if tmin >= 25:
+                        trange = 4
+                    elif tmin >= 20:
+                        trange = 3
+                    elif tmin >= 15:
+                        trange = 2
+            if trange == 1 and humidity >= 70:
+                disease.append('Late Blight')
+            elif trange == 2 and humidity <= 70:
+                pest.append('Aphids')
+            elif trange == 3:
+                if humidity <= 50:
+                    disease.append('Powdery Mildew')
+                    pest.append('Tomato Hornworms')
+                elif humidity <= 70:
+                    pest.append('Whiteflies')
+                    disease.append('Powdery Mildew')
+                    pest.append('Tomato Hornworms')
+                elif humidity <= 75:
+                    pest.append('Whiteflies')
+                elif humidity <= 80:
+                    disease.append('Early Blight')
+                    pest.append('Whiteflies')
+                elif humidity <= 85:
+                    disease.append('Bacterial Spot')
+                    disease.append('Early Blight')
+                else:
+                    disease.append('Bacterial Spot')
+            elif trange == 4 and humidity >= 40 and humidity <= 60:
+                pest.append('Spider Mites')
+                if humidity >= 50:
+                    disease.append('Fusarium Wilt')
+            l = []
+            if pest:
+                l.append('1')
+                l.append(pest)
+                #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
+            if disease:
+                l.append('2')
+                l.append(disease)
+                #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
             return l
 
 if 'active_page' not in st.session_state:
@@ -204,140 +256,189 @@ def cb_yield_home():
     
 
 def advisoryhome() :
-	st.title("CROP MODELLING")
-	with st.sidebar:
-		selected = option_menu("Select Advisory", ['Pest and Disease Alert', 'Fertilizer Advisory', 'Irrigation Water Requirement'])
-		st.button("Back to Main Page", on_click = cb_main_home)
-	if selected == 'Pest and Disease Alert' :	
-		st.subheader("Pest and Disease Alert")
-		st.info("Please enter the required details")
-		crop = st.selectbox('Type of Crop',('Corn', 'Soybean'))
-		tmax = st.number_input("Maximum temperature in Celsius", format="%f")
-		tmin = st.number_input("Minimum temperature in Celsius", format="%f")
-		humidity = st.number_input("Humidity in percent", format = "%f")
-		check = st.button("Submit")
-		if check : 
-			st.success("Submitted")
-			ans = pest_alert(tmin, tmax, humidity, crop)
-			if ans :
-				if len(ans) == 4 :
-					i=0
-					j=0
-					st.info(f"Your crop is under risk for following pest infections :")
-					for plant_pest in ans[1]:
-						i=i+1
-						st.write(f"{i}. {plant_pest}")
-					st.info(f"Your crop is prone to get infected by following diseases :")
-					for plant_disease in ans[3]:
-						j=j+1
-						st.write(f"{j}. {plant_disease}")
-				elif len(ans) == 2 :
-					if ans[0] == '1' :
-						i=0
-						st.info(f"Your crop is under risk for following pest infections :")
-						for plant_pest in ans[1]:
-							i=i+1
-							st.write(f"{i}. {plant_pest}")
-					elif ans[0] == '2' :
-						j=0
-						st.info(f"Your crop is prone to get infected by following diseases :")
-						for plant_disease in ans[3]:
-							j=j+1
-							st.write(f"{j}. {plant_disease}")
-				else :
-					st.info("No Pest infections or Diseases affected for the crop in the given circumstances")
-			else :
-				st.info("No Pest infections or Diseases affected for the crop in the given circumstances")
-	if selected == 'Fertilizer Advisory' :
-		st.subheader("Fertilizer Advisory")
-		st.info("Please enter the required detail")
-		crop = st.selectbox('Type of Crop',('Corn', 'Soybean'))
-		area = st.number_input("Area of Plantation in Hectares")
-		check = st.button("Submit")
-		if check and crop == 'Soybean' : 
-			dap1 = 60/0.46
-			urea1 = (0.18*dap1)+((25-(0.18*dap1))/0.46)
-			mop1 = 40/0.6
-			st.info("Basal Application :")
-			temp = round(urea1*area,2)
-			st.write(f"1. Urea: {temp} Kg")
-			temp = round(dap1*area,2)
-			st.write(f"2. Di-ammonium Phosphate[DAP]: {temp} Kg")
-			temp = round(mop1*area,2)
-			st.write(f"3. Muriate of Potash[MOP]: {temp} Kg")
-			temp = round(220*area,2)
-			st.write(f"4. Gypsum: {temp} Kg")
-			temp = round(25*area,2)
-			st.write(f"5. Zinc Sulphate: {temp} Kg")
-			st.info("Split Application : ")
-			st.info("Pre-flowering stage:")
-			st.write("1. foiler spray of 40mg/l Naphthyl Acetic Acid[NAA] once")
-			st.write("2. foiler spray of 100mg/l Saliyclic Acid once")
-			st.info("15 days after pre-flowering:")
-			st.write("1. foiler spray of 40mg/l Naphthyl Acetic Acid[NAA] once")
-			st.write("2. foiler spray of 100mg/l Saliyclic Acid once")
-			st.info("At flowering stage:")
-			st.write("1. foiler spray of 20 g/l Di-ammonium Phosphate[DAP] once")
-			st.write("2. foiler spray of 20 g/l Urea once")
-			st.info("15 days after flowering stage:")
-			st.write("1. foiler spray of 20 g/l Di-ammonium Phosphate[DAP] once")
-			st.write("2. foiler spray of 20 g/l Urea once")
-		elif check and crop == 'Corn' : 
-			dap1 = 62.5/0.46
-			urea1 = (0.18*dap1)+(((135/4)-(0.18*dap1))/0.46)
-			mop1 = 50/0.6
-			urea2 = (135/3)/0.46
-			urea3 = (135/0.46)-(urea1+urea2)
-			st.info("Basal Application :")
-			temp = round(urea1*area,2)
-			st.write(f"1. Urea: {temp} Kg")
-			temp = round(dap1*area,2)
-			st.write(f"2. Di-ammonium Phosphate[DAP]: {temp} Kg")
-			temp = round(mop1*area,2)
-			st.write(f"3. Muriate of Potash[MOP]: {temp} Kg")
-			temp = round(37.5*area,2)
-			st.write(f"4. Zinc Sulphate: {temp} Kg")
-			st.info("Split Application : ")
-			st.info("initial stages of growth spurt:")
-			temp = round(urea2*area,2)
-			st.write(f"1. Urea: {temp} Kg")
-			st.info("After 30 days of growth spurt:")
-			temp = round(urea3*area,2)
-			st.write(f"1. Urea: {temp} Kg")
-			st.info("At stage of 7-9 leaves:")
-			temp = round(200*area,2)
-			st.write(f"1. foiler spray of 2% concentration Potassium Nitrate: {temp} litres")
-			st.info("After 21 days from stage of 7-9 leaves:")
-			temp = round(200*area,2)
-			st.write(f"1. foiler spray of 2% concentration Potassium Nitrate: {temp} litres")
-	if selected == 'Irrigation Water Requirement' :
-		st.subheader("Irrigation Water Requirement")
-		st.info("Please enter the required details")
-		crop = st.selectbox('Type of Crop',('Corn', 'Soybean'))
-		# Tmax, Tmin, RHmin, RHmax, z, J, latirad, n, uz, G, IrrigationInterval, Timeofseason, P
-		tmax = st.number_input("Maximum temperature in Celsius", format="%f")
-		tmin = st.number_input("Minimum temperature in Celsius", format="%f")
-		RHmin = st.number_input("Minimum Relative Humidity in percent", format = "%f", min_value = 0.00, max_value = 100.00)
-		RHmax = st.number_input("Maximum Relative Humidity in percent", format = "%f", min_value = 0.00, max_value = 100.00)
-		z = st.number_input("Elevation above sea level in meters", format = "%f")
-		latirad = st.number_input("Latitude of Plantation area in radian" , format = "%f")
-		n = st.number_input("Sunshine duration in hr", format = "%f")
-		uz = st.number_input("Measured Wind Speed at the plantation area height above ground surface in m/s", format = "%f")
-		G = st.number_input("Ground heat flux in Plantation Area in (W m−2)")
-		IrrigationInterval = st.number_input("Irrigation Interval in days", step = 1, min_value = 2, max_value = 3)
-		Timeofseason = st.number_input("Time of Season in days", step = 1, min_value = 0)
-		P = st.number_input("Rainfall in mm", format = "%f")
-		check = st.button("Submit")
-		if check :
-			st.success("Submitted")
-			answer = irrigationwater(tmax, tmin, RHmin, RHmax, z, latirad, n, uz, G, IrrigationInterval, Timeofseason, P, crop)
-			if answer >= 0 :
-				st.info(f"Irrigation Water Requirement is {answer}")
-			else :
-				st.info("Please check the given inputs")
+    st.title("CROP MODELLING")
+    with st.sidebar:
+        selected = option_menu("Select Advisory", ['Pest and Disease Alert', 'Fertilizer Advisory', 'Irrigation Water Requirement'])
+        st.button("Back to Main Page", on_click = cb_main_home)
+            
+    if selected == 'Pest and Disease Alert' :	
+        st.subheader("Pest and Disease Alert")
+        st.info("Please enter the required details")
+        crop = st.selectbox('Type of Crop',('Corn', 'Soybean', 'Tomato', 'Okra', 'Cilli', 'Cowpea'))
+        tmax = st.number_input("Maximum temperature in Celsius", format="%f")
+        tmin = st.number_input("Minimum temperature in Celsius", format="%f")
+        humidity = st.number_input("Humidity in percent", format = "%f")
+        check = st.button("Submit")
+        if check : 
+            st.success("Submitted")
+            ans = pest_alert(tmin, tmax, humidity, crop)
+            if ans :
+                if len(ans) == 4 :
+                    i=0
+                    j=0
+                    st.info(f"Your crop is under risk for following pest infections :")
+                    for plant_pest in ans[1]:
+                            i=i+1
+                            st.write(f"{i}. {plant_pest}")
+                    st.info(f"Your crop is prone to get infected by following diseases :")
+                    for plant_disease in ans[3]:
+                            j=j+1
+                            st.write(f"{j}. {plant_disease}")
+                elif len(ans) == 2 :
+                    if ans[0] == '1' :
+                        i=0
+                        st.info(f"Your crop is under risk for following pest infections :")
+                        for plant_pest in ans[1]:
+                            i=i+1
+                            st.write(f"{i}. {plant_pest}")
+                    elif ans[0] == '2' :
+                        j=0
+                        st.info(f"Your crop is prone to get infected by following diseases :")
+                        for plant_disease in ans[3]:
+                            j=j+1
+                            st.write(f"{j}. {plant_disease}")
+                else :
+                    st.info("No Pest infections or Diseases affected for the crop in the given circumstances")
+            else :
+                st.info("No Pest infections or Diseases affected for the crop in the given circumstances")
+                            
+    if selected == 'Fertilizer Advisory' :
+        st.subheader("Fertilizer Advisory")
+        st.info("Please enter the required detail")
+        crop = st.selectbox('Type of Crop',('Corn', 'Soybean', 'Tomato', 'Okra', 'Cilli', 'Cowpea'))
+        area = st.number_input("Area of Plantation in Hectares")
+        nitrogen = st.number_input("Nitrogen content present in the soil in Kg/ha")
+        phosphorus = st.number_input("Phosphosrus content present in the soil in Kg/ha")
+        potassium = st.number_input("Pottasium content present in the soil in Kg/ha")
+        check = st.button("Submit")
+        fertilizer = []
+        if check and crop == 'Soybean' : 
+            if phosphorus < 60:
+                if nitrogen+(0.18*((60-phosphorus)/0.46)) < 25:
+                    dap1 = (60-phosphorus)/0.46
+                    urea1 = (25-nitrogen-(0.18*dap1))/0.46
+                elif nitrogen < 25:
+                    dap1 = (25-nitrogen)/0.18
+                    ssp1 = (60-phosphorus-(0.46*dap1))/0.16
+                else:
+                    ssp1 = (60-phosphorus)/0.16
+            mop1 = (40-potassium)/0.6 if potassium < 40 else 0
+            urea1 = round(urea1*area,2)
+            dap1 = round(dap1*area,2)
+            ssp1 = round(ssp1*area,2)
+            mop1 = round(mop1*area,2)
+            if urea1 > 0: fertilizer.append(f"Urea : {urea1} Kg/ha")
+            if dap1 > 0: fertilizer.append(f"Di-ammonium Phosphate[DAP] : {dap1} Kg/ha")
+            if ssp1 > 0: fertilizer.append(f"Single superphosphate[SSP] : {ssp1} Kg/ha")
+            if mop1 > 0: fertilizer.append(f"Muriate of Potash[MOP] : {mop1} Kg/ha")
+            st.info("Basal Application :")
+            i=0
+            for fert in fertilizer:
+                i=i+1
+                st.write(f"{i}. {fert}")
+            temp = round(220*area,2)
+            st.write(f"{i+1}. Gypsum: {temp} Kg")
+            temp = round(25*area,2)
+            st.write(f"{i+2}. Zinc Sulphate: {temp} Kg")
+            st.info("Split Application : ")
+            st.info("Pre-flowering stage:")
+            st.write("1. foiler spray of 40mg/l Naphthyl Acetic Acid[NAA] once")
+            st.write("2. foiler spray of 100mg/l Saliyclic Acid once")
+            st.info("15 days after pre-flowering:")
+            st.write("1. foiler spray of 40mg/l Naphthyl Acetic Acid[NAA] once")
+            st.write("2. foiler spray of 100mg/l Saliyclic Acid once")
+            st.info("At flowering stage:")
+            st.write("1. foiler spray of 20 g/l Di-ammonium Phosphate[DAP] once")
+            st.write("2. foiler spray of 20 g/l Urea once")
+            st.info("15 days after flowering stage:")
+            st.write("1. foiler spray of 20 g/l Di-ammonium Phosphate[DAP] once")
+            st.write("2. foiler spray of 20 g/l Urea once")
+        elif check and crop == 'Corn' : 
+            dap1 = (62.5-phosphorus)/0.46
+            urea1 = (0.18*dap1)+((((135-nitrogen)/4)-(0.18*dap1))/0.46)
+            mop1 = 50/0.6
+            urea2 = (135/3)/0.46
+            urea3 = (135/0.46)-(urea1+urea2)
+            st.info("Basal Application :")
+            temp = round(urea1*area,2)
+            st.write(f"1. Urea: {temp} Kg")
+            temp = round(dap1*area,2)
+            st.write(f"2. Di-ammonium Phosphate[DAP]: {temp} Kg")
+            temp = round(mop1*area,2)
+            st.write(f"3. Muriate of Potash[MOP]: {temp} Kg")
+            temp = round(37.5*area,2)
+            st.write(f"4. Zinc Sulphate: {temp} Kg")
+            st.info("Split Application : ")
+            st.info("initial stages of growth spurt:")
+            temp = round(urea2*area,2)
+            st.write(f"1. Urea: {temp} Kg")
+            st.info("After 30 days of growth spurt:")
+            temp = round(urea3*area,2)
+            st.write(f"1. Urea: {temp} Kg")
+            st.info("At stage of 7-9 leaves:")
+            temp = round(200*area,2)
+            st.write(f"1. foiler spray of 2% concentration Potassium Nitrate: {temp} litres")
+            st.info("After 21 days from stage of 7-9 leaves:")
+            temp = round(200*area,2)
+            st.write(f"1. foiler spray of 2% concentration Potassium Nitrate: {temp} litres")
+        elif check and crop == 'Tomato' : 
+            dap1 = 40/0.46
+            urea1 = (0.18*dap1)+((37.5-(0.18*dap1))/0.46)
+            mop1 = 12.5/0.6
+            mop2 = mop1
+            urea2 = (37.5/0.46)/2
+            urea3 = urea2
+            st.info("Basal Application :")
+            temp = round(urea1*area,2)
+            st.write(f"1. Urea: {temp} Kg")
+            temp = round(dap1*area,2)
+            st.write(f"2. Di-ammonium Phosphate[DAP]: {temp} Kg")
+            temp = round(mop1*area,2)
+            st.write(f"3. Muriate of Potash[MOP]: {temp} Kg")
+            temp = round(37.5*area,2)
+            st.write(f"4. Zinc Sulphate: {temp} Kg")
+            st.info("Split Application : ")
+            st.info("initial stages of growth spurt:")
+            temp = round(urea2*area,2)
+            st.write(f"1. Urea: {temp} Kg")
+            st.info("After 30 days of growth spurt:")
+            temp = round(urea3*area,2)
+            st.write(f"1. Urea: {temp} Kg")
+            st.info("At stage of 7-9 leaves:")
+            temp = round(200*area,2)
+            st.write(f"1. foiler spray of 2% concentration Potassium Nitrate: {temp} litres")
+            st.info("After 21 days from stage of 7-9 leaves:")
+            temp = round(200*area,2)
+            st.write(f"1. foiler spray of 2% concentration Potassium Nitrate: {temp} litres")
+                    
+    if selected == 'Irrigation Water Requirement' :
+        st.subheader("Irrigation Water Requirement")
+        st.info("Please enter the required details")
+        crop = st.selectbox('Type of Crop',('Corn', 'Soybean', 'Tomato', 'Okra', 'Cilli', 'Cowpea'))
+        # Tmax, Tmin, RHmin, RHmax, z, J, latirad, n, uz, G, IrrigationInterval, Timeofseason, P
+        tmax = st.number_input("Maximum temperature in Celsius", format="%f")
+        tmin = st.number_input("Minimum temperature in Celsius", format="%f")
+        RHmin = st.number_input("Minimum Relative Humidity in percent", format = "%f", min_value = 0.00, max_value = 100.00)
+        RHmax = st.number_input("Maximum Relative Humidity in percent", format = "%f", min_value = 0.00, max_value = 100.00)
+        z = st.number_input("Elevation above sea level in meters", format = "%f")
+        latirad = st.number_input("Latitude of Plantation area in radian" , format = "%f")
+        n = st.number_input("Sunshine duration in hr", format = "%f")
+        uz = st.number_input("Measured Wind Speed at the plantation area height above ground surface in m/s", format = "%f")
+        G = st.number_input("Ground heat flux in Plantation Area in (W m−2)")
+        IrrigationInterval = st.number_input("Irrigation Interval in days", step = 1, min_value = 2, max_value = 3)
+        Timeofseason = st.number_input("Time of Season in days", step = 1, min_value = 0)
+        P = st.number_input("Rainfall in mm", format = "%f")
+        check = st.button("Submit")
+        if check :
+                st.success("Submitted")
+                answer = irrigationwater(tmax, tmin, RHmin, RHmax, z, latirad, n, uz, G, IrrigationInterval, Timeofseason, P, crop)
+                if answer >= 0 :
+                    st.info(f"Irrigation Water Requirement is {answer}")
+                else :
+                    st.info("Please check the given inputs")
 
-    		    
-	
+                    
+      
 def yieldprediction() : 
     st.title("CROP MODELLING")
     st.header("Crop Yield Prediction")
@@ -493,23 +594,23 @@ def yieldprediction() :
             else :
                 x = 0
                 st.info(f"Predicted Yield is  {x} bushel per arce")
-	    
+          
 
 def mainmenu() :
-	st.title("CROP MODELLING")
-	st.subheader("CROP ADVISORY AND CROP YIELD PREDICTION")
-	st.write("")
-	c1, c2 = st.columns(2)
-	with c1:
-		st.write("Click the below button for Crop Advisory ")
-		st.button("Crop Advisory", on_click = cb_advisory_home)
-	with c2:
-		st.write("Click the below button for Crop Yield Prediction")
-		st.button("Crop Yield", on_click=cb_yield_home)
-        		
+    st.title("CROP MODELLING")
+    st.subheader("CROP ADVISORY AND CROP YIELD PREDICTION")
+    st.write("")
+    c1, c2 = st.columns(2)
+    with c1:
+        st.write("Click the below button for Crop Advisory ")
+        st.button("Crop Advisory", on_click = cb_advisory_home)
+    with c2:
+        st.write("Click the below button for Crop Yield Prediction")
+        st.button("Crop Yield", on_click=cb_yield_home)
+                    
 if st.session_state.active_page == 'yield_home' :
-	yieldprediction()
+    yieldprediction()
 elif st.session_state.active_page == 'main_home' :
-	mainmenu()
+    mainmenu()
 elif st.session_state.active_page == 'advisory_home' :
-	advisoryhome()
+    advisoryhome()
