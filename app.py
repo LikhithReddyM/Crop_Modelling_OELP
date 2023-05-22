@@ -322,6 +322,7 @@ def advisoryhome() :
                     ssp1 = (60-phosphorus-(0.46*dap1))/0.16
                 else:
                     ssp1 = (60-phosphorus)/0.16
+            st.write(ssp1)
             mop1 = (40-potassium)/0.6 if potassium < 40 else 0
             if urea1 > 0: fertilizer.append(f"Urea : {round(urea1*area,2)} Kg/ha")
             if dap1 > 0: fertilizer.append(f"Di-ammonium Phosphate[DAP] : {round(dap1*area,2)} Kg/ha")
