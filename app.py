@@ -323,14 +323,10 @@ def advisoryhome() :
                 else:
                     ssp1 = (60-phosphorus)/0.16
             mop1 = (40-potassium)/0.6 if potassium < 40 else 0
-            urea1 = round(urea1*area,2)
-            dap1 = round(dap1*area,2)
-            ssp1 = round(ssp1*area,2)
-            mop1 = round(mop1*area,2)
-            if urea1 > 0: fertilizer.append(f"Urea : {urea1} Kg/ha")
-            if dap1 > 0: fertilizer.append(f"Di-ammonium Phosphate[DAP] : {dap1} Kg/ha")
-            if ssp1 > 0: fertilizer.append(f"Single superphosphate[SSP] : {ssp1} Kg/ha")
-            if mop1 > 0: fertilizer.append(f"Muriate of Potash[MOP] : {mop1} Kg/ha")
+            if urea1 > 0: fertilizer.append(f"Urea : {round(urea1*area,2)} Kg/ha")
+            if dap1 > 0: fertilizer.append(f"Di-ammonium Phosphate[DAP] : {round(dap1*area,2)} Kg/ha")
+            if ssp1 > 0: fertilizer.append(f"Single superphosphate[SSP] : {round(ssp1*area,2)} Kg/ha")
+            if mop1 > 0: fertilizer.append(f"Muriate of Potash[MOP] : {round(mop1*area,2)} Kg/ha")
             st.info("Basal Application :")
             i=0
             for fert in fertilizer:
