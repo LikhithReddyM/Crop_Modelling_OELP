@@ -121,165 +121,165 @@ def irrigationwater(Tmax, Tmin, RHmin, RHmax, z, latirad, n, uz, G, IrrigationIn
         return ((IrrigationInterval * et0 * kc) - Er)
 
 def pest_alert(tmin, tmax, humidity, crop):
-      if crop == 'Soybean':
-            if tmin > tmax or humidity >= 90 or humidity <= 40:
-                return
-            pest = []
-            disease = []
-            trange = 0
-            if tmin >= 10:
-                if tmax <= 25:
-                    trange = 1
-                elif tmax <= 30:
-                    if tmin >= 25:
-                        trange = 4
-                    elif tmin >= 20:
-                        trange = 3
-                    elif tmin >= 15:
-                        trange = 2
-            if trange == 1 and humidity >= 70:
-                disease.append('Septoria Leaf blight')
-            elif trange == 2 and humidity <= 70:
-                pest.append('Aphids')
-            elif trange == 3:
-                if humidity <= 50:
-                    disease.append('Rhizoctonia stem rot')
-                    pest.append('Bean Leaf Beetle')
-                elif humidity <= 70:
-                    pest.append('Green Cloverworm')
-                    disease.append('Rhizoctonia stem rot')
-                    pest.append('Bean Leaf Beetle')
-                elif humidity <= 75:
-                    pest.append('Green Cloverworm')
-                elif humidity <= 80:
-                    disease.append('Bacterial blight')
-                    pest.append('Green Cloverworm')
-                elif humidity <= 85:
-                    disease.append('Rust')
-                    disease.append('Bacterial blight')
-                else:
-                    disease.append('Rust')
-            elif trange == 4 and humidity >= 40 and humidity <= 60:
-                pest.append('Stem Borers')
-                if humidity >= 50:
-                    disease.append('Sclerotinia stem rot')
-            l = []
-            if pest:
-                l.append('1')
-                l.append(pest)
-                #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
-            if disease:
-                l.append('2')
-                l.append(disease)
-                #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
-            return l
-      elif crop == 'Corn':
-            if tmin > tmax or humidity >= 90 or humidity <= 40:
-                return
-            pest = []
-            disease = []
-            trange = 0
-            if tmin >= 10:
-                if tmax <= 25:
-                    trange = 1
-                elif tmax <= 30:
-                    if tmin >= 25:
-                        trange = 4
-                    elif tmin >= 20:
-                        trange = 3
-                    elif tmin >= 15:
-                        trange = 2
-            if trange == 1 and humidity >= 70:
-                disease.append('Bacterial Leaf Blight')
-            elif trange == 2 and humidity <= 70:
-                pest.append('Aphids')
-            elif trange == 3:
-                if humidity <= 50:
-                    pest.append('Spider Mites')
-                    disease.append('Downy Mildew')
-                    pest.append('Flea beetles')
-                elif humidity <= 60:
-                    pest.append('Spider Mites')
-                elif humidity <= 70:
-                    pest.append('Cutworms')
-                    disease.append('Downy Mildew')
-                    pest.append('Flea beetles')
-                elif humidity <= 75:
-                    pest.append('Cutworms')
-                elif humidity <= 80:
-                    disease.append('Southern Corn Blight')
-                    pest.append('Cutworms')
-                elif humidity <= 85:
-                    disease.append('Cercospora leaf spot')
-                    disease.append('Southern Corn Blight')
-                else:
-                    disease.append('Cercospora leaf spot')
-            elif trange == 4 and humidity >= 40 and humidity <= 60:
-                pest.append('Thrips')
-                if humidity >= 50:
-                    disease.append('Stewart\'s wilt')
-            l = []
-            if pest:
-                l.append('1')
-                l.append(pest)
-                #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
-            if disease:
-                l.append('2')
-                l.append(disease)
-                #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
-            return l
-      elif crop == 'Tomato':
-            if tmin > tmax or humidity >= 90 or humidity <= 40:
-                return
-            pest = []
-            disease = []
-            trange = 0
-            if tmin >= 10:
-                if tmax <= 25:
-                    trange = 1
-                elif tmax <= 30:
-                    if tmin >= 25:
-                        trange = 4
-                    elif tmin >= 20:
-                        trange = 3
-                    elif tmin >= 15:
-                        trange = 2
-            if trange == 1 and humidity >= 70:
-                disease.append('Late Blight')
-            elif trange == 2 and humidity <= 70:
-                pest.append('Aphids')
-            elif trange == 3:
-                if humidity <= 50:
-                    disease.append('Powdery Mildew')
-                    pest.append('Tomato Hornworms')
-                elif humidity <= 70:
-                    pest.append('Whiteflies')
-                    disease.append('Powdery Mildew')
-                    pest.append('Tomato Hornworms')
-                elif humidity <= 75:
-                    pest.append('Whiteflies')
-                elif humidity <= 80:
-                    disease.append('Early Blight')
-                    pest.append('Whiteflies')
-                elif humidity <= 85:
-                    disease.append('Bacterial Spot')
-                    disease.append('Early Blight')
-                else:
-                    disease.append('Bacterial Spot')
-            elif trange == 4 and humidity >= 40 and humidity <= 60:
+    if crop == 'Soybean':
+        if tmin > tmax or humidity >= 90 or humidity <= 40:
+            return
+        pest = []
+        disease = []
+        trange = 0
+        if tmin >= 10:
+            if tmax <= 25:
+                trange = 1
+            elif tmax <= 30:
+                if tmin >= 25:
+                    trange = 4
+                elif tmin >= 20:
+                    trange = 3
+                elif tmin >= 15:
+                    trange = 2
+        if trange == 1 and humidity >= 70:
+            disease.append('Septoria Leaf blight')
+        elif trange == 2 and humidity <= 70:
+            pest.append('Aphids')
+        elif trange == 3:
+            if humidity <= 50:
+                disease.append('Rhizoctonia stem rot')
+                pest.append('Bean Leaf Beetle')
+            elif humidity <= 70:
+                pest.append('Green Cloverworm')
+                disease.append('Rhizoctonia stem rot')
+                pest.append('Bean Leaf Beetle')
+            elif humidity <= 75:
+                pest.append('Green Cloverworm')
+            elif humidity <= 80:
+                disease.append('Bacterial blight')
+                pest.append('Green Cloverworm')
+            elif humidity <= 85:
+                disease.append('Rust')
+                disease.append('Bacterial blight')
+            else:
+                disease.append('Rust')
+        elif trange == 4 and humidity >= 40 and humidity <= 60:
+            pest.append('Stem Borers')
+            if humidity >= 50:
+                disease.append('Sclerotinia stem rot')
+        l = []
+        if pest:
+            l.append('1')
+            l.append(pest)
+            #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
+        if disease:
+            l.append('2')
+            l.append(disease)
+            #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
+        return l
+    elif crop == 'Corn':
+        if tmin > tmax or humidity >= 90 or humidity <= 40:
+            return
+        pest = []
+        disease = []
+        trange = 0
+        if tmin >= 10:
+            if tmax <= 25:
+                trange = 1
+            elif tmax <= 30:
+                if tmin >= 25:
+                    trange = 4
+                elif tmin >= 20:
+                    trange = 3
+                elif tmin >= 15:
+                    trange = 2
+        if trange == 1 and humidity >= 70:
+            disease.append('Bacterial Leaf Blight')
+        elif trange == 2 and humidity <= 70:
+            pest.append('Aphids')
+        elif trange == 3:
+            if humidity <= 50:
                 pest.append('Spider Mites')
-                if humidity >= 50:
-                    disease.append('Fusarium Wilt')
-            l = []
-            if pest:
-                l.append('1')
-                l.append(pest)
-                #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
-            if disease:
-                l.append('2')
-                l.append(disease)
-                #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
-            return l
+                disease.append('Downy Mildew')
+                pest.append('Flea beetles')
+            elif humidity <= 60:
+                pest.append('Spider Mites')
+            elif humidity <= 70:
+                pest.append('Cutworms')
+                disease.append('Downy Mildew')
+                pest.append('Flea beetles')
+            elif humidity <= 75:
+                pest.append('Cutworms')
+            elif humidity <= 80:
+                disease.append('Southern Corn Blight')
+                pest.append('Cutworms')
+            elif humidity <= 85:
+                disease.append('Cercospora leaf spot')
+                disease.append('Southern Corn Blight')
+            else:
+                disease.append('Cercospora leaf spot')
+        elif trange == 4 and humidity >= 40 and humidity <= 60:
+            pest.append('Thrips')
+            if humidity >= 50:
+                disease.append('Stewart\'s wilt')
+        l = []
+        if pest:
+            l.append('1')
+            l.append(pest)
+            #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
+        if disease:
+            l.append('2')
+            l.append(disease)
+            #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
+        return l
+    else:
+        if tmin > tmax or humidity >= 90 or humidity <= 40:
+            return
+        pest = []
+        disease = []
+        trange = 0
+        if tmin >= 10:
+            if tmax <= 25:
+                trange = 1
+            elif tmax <= 30:
+                if tmin >= 25:
+                    trange = 4
+                elif tmin >= 20:
+                    trange = 3
+                elif tmin >= 15:
+                    trange = 2
+        if trange == 1 and humidity >= 70:
+            disease.append('Late Blight')
+        elif trange == 2 and humidity <= 70:
+            pest.append('Aphids')
+        elif trange == 3:
+            if humidity <= 50:
+                disease.append('Powdery Mildew')
+                pest.append('Tomato Hornworms')
+            elif humidity <= 70:
+                pest.append('Whiteflies')
+                disease.append('Powdery Mildew')
+                pest.append('Tomato Hornworms')
+            elif humidity <= 75:
+                pest.append('Whiteflies')
+            elif humidity <= 80:
+                disease.append('Early Blight')
+                pest.append('Whiteflies')
+            elif humidity <= 85:
+                disease.append('Bacterial Spot')
+                disease.append('Early Blight')
+            else:
+                disease.append('Bacterial Spot')
+        elif trange == 4 and humidity >= 40 and humidity <= 60:
+            pest.append('Spider Mites')
+            if humidity >= 50:
+                disease.append('Fusarium Wilt')
+        l = []
+        if pest:
+            l.append('1')
+            l.append(pest)
+            #print("Your crop is uder risk for following pest infestations:", pest, sep='\n')
+        if disease:
+            l.append('2')
+            l.append(disease)
+            #print("Your crop is prone to get infected by following diseases:", disease, sep='\n')
+        return l
 
 if 'active_page' not in st.session_state:
     st.session_state.active_page = 'main_home'
