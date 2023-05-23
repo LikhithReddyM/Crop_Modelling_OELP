@@ -80,6 +80,45 @@ def irrigationwater(Tmax, Tmin, RHmin, RHmax, z, latirad, n, uz, G, IrrigationIn
         Er = P * (125 - (0.2 * P))
         Er = Er / 125
         return ((IrrigationInterval * et0 * kc) - Er)
+    elif crop == 'Okra' :
+        et0 = ETnot(Tmax, Tmin, RHmin, RHmax, z, 365, latirad, n, uz, G)
+        if 0 <= Timeofseason <= 10 :
+            kc = 0.2
+        if 10 < Timeofseason <= 41 :
+            kc = 0.4
+        elif 41 < Timeofseason <= 66 :
+            kc = 1
+        elif 66 < Timeofseason <= 86 :
+            kc = 0.9
+        Er = P * (125 - (0.2 * P))
+        Er = Er / 125
+        return ((IrrigationInterval * et0 * kc) - Er)
+    elif crop == 'Chilli' :
+        et0 = ETnot(Tmax, Tmin, RHmin, RHmax, z, 365, latirad, n, uz, G)
+        if 0 <= Timeofseason <= 30 :
+            kc = 0.52
+        if 30 < Timeofseason <= 70 :
+            kc = 0.8
+        elif 70 < Timeofseason <= 160 :
+            kc = 1.05
+        elif 160 < Timeofseason <= 185 :
+            kc = 0.78
+        Er = P * (125 - (0.2 * P))
+        Er = Er / 125
+        return ((IrrigationInterval * et0 * kc) - Er)
+    elif crop == 'Cowpea' : 
+        et0 = ETnot(Tmax, Tmin, RHmin, RHmax, z, 365, latirad, n, uz, G)
+        if 0 <= Timeofseason <= 20 :
+            kc = 0.4
+        if 20 < Timeofseason <= 50 :
+            kc = ((Timeofseason-20) * 0.0217) + 0.4
+        elif 50 < Timeofseason <= 80 :
+            kc = 1.05
+        elif 80 < Timeofseason <= 100 :
+            kc = ((Timeofseason-80) * (-0.0225)) + 1.05
+        Er = P * (125 - (0.2 * P))
+        Er = Er / 125
+        return ((IrrigationInterval * et0 * kc) - Er)
 
 def pest_alert(tmin, tmax, humidity, crop):
       if crop == 'Soybean':
@@ -264,7 +303,7 @@ def advisoryhome() :
     if selected == 'Pest and Disease Alert' :	
         st.subheader("Pest and Disease Alert")
         st.info("Please enter the required details")
-        crop = st.selectbox('Type of Crop',('Corn', 'Soybean', 'Tomato', 'Okra', 'Cilli', 'Cowpea'))
+        crop = st.selectbox('Type of Crop',('Corn', 'Soybean', 'Tomato', 'Okra', 'Chilli', 'Cowpea'))
         tmax = st.number_input("Maximum temperature in Celsius", format="%f")
         tmin = st.number_input("Minimum temperature in Celsius", format="%f")
         humidity = st.number_input("Humidity in percent", format = "%f")
@@ -305,14 +344,14 @@ def advisoryhome() :
     if selected == 'Fertilizer Advisory' :
         st.subheader("Fertilizer Advisory")
         st.info("Please enter the required detail")
-        crop = st.selectbox('Type of Crop',('Corn', 'Soybean', 'Tomato', 'Okra', 'Cilli', 'Cowpea'))
+        crop = st.selectbox('Type of Crop',('Corn', 'Soybean', 'Tomato', 'Okra', 'Chilli', 'Cowpea'))
         area = st.number_input("Area of Plantation in Hectares")
         nitrogen = st.number_input("Nitrogen content present in the soil in Kg/ha")
         phosphorus = st.number_input("Phosphosrus content present in the soil in Kg/ha")
         potassium = st.number_input("Pottasium content present in the soil in Kg/ha")
         check = st.button("Submit")
-        fertilizer = []
-        if check and crop == 'Soybean' : 
+        if check and crop == 'Soybean' :
+            fertilizer = []
             if phosphorus < 60:
                 if nitrogen+(0.18*((60-phosphorus)/0.46)) < 25:
                     dap1 = (60-phosphorus)/0.46
@@ -353,7 +392,7 @@ def advisoryhome() :
             st.info("15 days after flowering stage:")
             st.write("1. foiler spray of 20 g/l Di-ammonium Phosphate[DAP] once")
             st.write("2. foiler spray of 20 g/l Urea once")
-        elif check and crop == 'Corn' : 
+        elif check and crop == 'Corn' :
             dap1 = (62.5-phosphorus)/0.46
             urea1 = (0.18*dap1)+((((135-nitrogen)/4)-(0.18*dap1))/0.46)
             mop1 = 50/0.6
@@ -381,40 +420,54 @@ def advisoryhome() :
             st.info("After 21 days from stage of 7-9 leaves:")
             temp = round(200*area,2)
             st.write(f"1. foiler spray of 2% concentration Potassium Nitrate: {temp} litres")
-        elif check and crop == 'Tomato' : 
-            dap1 = 40/0.46
-            urea1 = (0.18*dap1)+((37.5-(0.18*dap1))/0.46)
-            mop1 = 12.5/0.6
+        elif check and (crop == 'Tomato' or crop == 'Chilli') :
+            fertilizer = []
+            if phosphorus < 40 and nitrogen < 75:
+                if (0.18*((40-phosphorus)/0.46)) < (75-nitrogen)/2:
+                    dap1 = (40-phosphorus)/0.46
+                    urea1 = (((75-nitrogen)/2)-(0.18*dap1))/0.46
+                    ssp1 = 0
+                else:
+                    dap1 = ((75-nitrogen)/2)/0.18
+                    ssp1 = (40-phosphorus-(0.46*dap1))/0.16
+                    urea1 = 0
+            elif phosphorus < 40:
+                ssp1 = (40-phosphorus)/0.16
+                dap1 = 0
+                urea1 = 0
+            elif nitrogen < 75:
+                ssp1 = 0
+                dap1 = 0
+                urea1 = ((75-nitrogen)/2)/0.46
+            mop1 = (25-potassium)/1.2 if potassium < 25 else 0
             mop2 = mop1
-            urea2 = (37.5/0.46)/2
+            urea2 = ((75-nitrogen)/4)/0.46 if nitrogen < 75 else 0
             urea3 = urea2
+            if urea1 > 0: fertilizer.append(f"Urea : {round(urea1*area,2)} Kg")
+            if dap1 > 0: fertilizer.append(f"Di-ammonium Phosphate[DAP] : {round(dap1*area,2)} Kg")
+            if ssp1 > 0: fertilizer.append(f"Single superphosphate[SSP] : {ssp1} Kg")
+            if mop1 > 0: fertilizer.append(f"Muriate of Potash[MOP] : {round(mop1*area,2)} Kg")
             st.info("Basal Application :")
-            temp = round(urea1*area,2)
-            st.write(f"1. Urea: {temp} Kg")
-            temp = round(dap1*area,2)
-            st.write(f"2. Di-ammonium Phosphate[DAP]: {temp} Kg")
-            temp = round(mop1*area,2)
-            st.write(f"3. Muriate of Potash[MOP]: {temp} Kg")
-            temp = round(37.5*area,2)
-            st.write(f"4. Zinc Sulphate: {temp} Kg")
-            st.info("Split Application : ")
-            st.info("initial stages of growth spurt:")
-            temp = round(urea2*area,2)
-            st.write(f"1. Urea: {temp} Kg")
-            st.info("After 30 days of growth spurt:")
-            temp = round(urea3*area,2)
-            st.write(f"1. Urea: {temp} Kg")
-            st.info("At stage of 7-9 leaves:")
-            temp = round(200*area,2)
-            st.write(f"1. foiler spray of 2% concentration Potassium Nitrate: {temp} litres")
-            st.info("After 21 days from stage of 7-9 leaves:")
-            temp = round(200*area,2)
-            st.write(f"1. foiler spray of 2% concentration Potassium Nitrate: {temp} litres")
+            i=0
+            for fert in fertilizer:
+                i=i+1
+                st.write(f"{i}. {fert}")
+            if urea2!=0 or mop2!=0:
+                st.info("Split Application : ")
+                st.info("After 20 to 30 days of transplanting:")
+                if urea2!=0:
+                    st.write(f"1. Urea: {round(urea2*area,2)} Kg")
+                    if mop2!=0:
+                        st.write(f"2. Muriate of Potash[MOP] : {round(mop2*area,2)} Kg")
+                    st.info("After 60 days of transplanting:")
+                    st.write(f"1. Urea: {round(urea3*area,2)} Kg")
+                else:
+                    st.write(f"1. Muriate of Potash[MOP] : {round(mop2*area,2)} Kg")
                     
     if selected == 'Irrigation Water Requirement' :
         st.subheader("Irrigation Water Requirement")
         st.info("Please enter the required details")
-        crop = st.selectbox('Type of Crop',('Corn', 'Soybean', 'Tomato', 'Okra', 'Cilli', 'Cowpea'))
+        crop = st.selectbox('Type of Crop',('Corn', 'Soybean', 'Tomato', 'Okra', 'Chilli', 'Cowpea'))
         # Tmax, Tmin, RHmin, RHmax, z, J, latirad, n, uz, G, IrrigationInterval, Timeofseason, P
         tmax = st.number_input("Maximum temperature in Celsius", format="%f")
         tmin = st.number_input("Minimum temperature in Celsius", format="%f")
