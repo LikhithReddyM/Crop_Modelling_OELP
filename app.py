@@ -350,8 +350,8 @@ def advisoryhome() :
         phosphorus = st.number_input("Phosphosrus content present in the soil in Kg/ha")
         potassium = st.number_input("Pottasium content present in the soil in Kg/ha")
         check = st.button("Submit")
+        fertilizer = []
         if check and crop == 'Soybean' :
-            fertilizer = []
             if phosphorus < 60:
                 if nitrogen+(0.18*((60-phosphorus)/0.46)) < 25:
                     dap1 = (60-phosphorus)/0.46
@@ -421,7 +421,6 @@ def advisoryhome() :
             temp = round(200*area,2)
             st.write(f"1. foiler spray of 2% concentration Potassium Nitrate: {temp} litres")
         elif check and (crop == 'Tomato' or crop == 'Chilli') :
-            fertilizer = []
             if phosphorus < 40 and nitrogen < 75:
                 if (0.18*((40-phosphorus)/0.46)) < (75-nitrogen)/2:
                     dap1 = (40-phosphorus)/0.46
@@ -445,7 +444,7 @@ def advisoryhome() :
             urea3 = urea2
             if urea1 > 0: fertilizer.append(f"Urea : {round(urea1*area,2)} Kg")
             if dap1 > 0: fertilizer.append(f"Di-ammonium Phosphate[DAP] : {round(dap1*area,2)} Kg")
-            if ssp1 > 0: fertilizer.append(f"Single superphosphate[SSP] : {ssp1} Kg")
+            if ssp1 > 0: fertilizer.append(f"Single superphosphate[SSP] : {round(ssp1*area,2)} Kg")
             if mop1 > 0: fertilizer.append(f"Muriate of Potash[MOP] : {round(mop1*area,2)} Kg")
             st.info("Basal Application :")
             i=0
@@ -463,6 +462,72 @@ def advisoryhome() :
                     st.write(f"1. Urea: {round(urea3*area,2)} Kg")
                 else:
                     st.write(f"1. Muriate of Potash[MOP] : {round(mop2*area,2)} Kg")
+        elif check and (crop == 'Cowpea') :
+            if phosphorus < 20 and nitrogen < 30:
+                if (0.18*((20-phosphorus)/0.46)) < (30-nitrogen)/2:
+                    dap1 = (20-phosphorus)/0.46
+                    urea1 = (((30-nitrogen)/2)-(0.18*dap1))/0.46
+                    ssp1 = 0
+                else:
+                    dap1 = ((30-nitrogen)/2)/0.18
+                    ssp1 = (20-phosphorus-(0.46*dap1))/0.16
+                    urea1 = 0
+            elif phosphorus < 20:
+                ssp1 = (20-phosphorus)/0.16
+                dap1 = 0
+                urea1 = 0
+            elif nitrogen < 30:
+                ssp1 = 0
+                dap1 = 0
+                urea1 = ((30-nitrogen)/2)/0.46
+            mop1 = (10-potassium)/0.6 if potassium < 10 else 0
+            urea2 = ((30-nitrogen)/2)/0.46 if nitrogen < 30 else 0
+            if urea1 > 0: fertilizer.append(f"Urea : {round(urea1*area,2)} Kg")
+            if dap1 > 0: fertilizer.append(f"Di-ammonium Phosphate[DAP] : {round(dap1*area,2)} Kg")
+            if ssp1 > 0: fertilizer.append(f"Single superphosphate[SSP] : {round(ssp1*area,2)} Kg")
+            if mop1 > 0: fertilizer.append(f"Muriate of Potash[MOP] : {round(mop1*area,2)} Kg")
+            st.info("Basal Application :")
+            i=0
+            for fert in fertilizer:
+                i=i+1
+                st.write(f"{i}. {fert}")
+            if urea2!=0:
+                st.info("Split Application : ")
+                st.info("After 15 to 20 days of transplanting:")
+                st.write(f"1. Urea: {round(urea2*area,2)} Kg")
+        elif check and (crop == 'Okra') :
+            if phosphorus < 8 and nitrogen < 50:
+                if (0.18*((8-phosphorus)/0.46)) < (50-nitrogen)/2:
+                    dap1 = (8-phosphorus)/0.46
+                    urea1 = (((50-nitrogen)/2)-(0.18*dap1))/0.46
+                    ssp1 = 0
+                else:
+                    dap1 = ((50-nitrogen)/2)/0.18
+                    ssp1 = (8-phosphorus-(0.46*dap1))/0.16
+                    urea1 = 0
+            elif phosphorus < 8:
+                ssp1 = (8-phosphorus)/0.16
+                dap1 = 0
+                urea1 = 0
+            elif nitrogen < 50:
+                ssp1 = 0
+                dap1 = 0
+                urea1 = ((50-nitrogen)/2)/0.46
+            mop1 = (25-potassium)/0.6 if potassium < 25 else 0
+            urea2 = ((50-nitrogen)/2)/0.46 if nitrogen < 50 else 0
+            if urea1 > 0: fertilizer.append(f"Urea : {round(urea1*area,2)} Kg")
+            if dap1 > 0: fertilizer.append(f"Di-ammonium Phosphate[DAP] : {round(dap1*area,2)} Kg")
+            if ssp1 > 0: fertilizer.append(f"Single superphosphate[SSP] : {round(ssp1*area,2)} Kg")
+            if mop1 > 0: fertilizer.append(f"Muriate of Potash[MOP] : {round(mop1*area,2)} Kg")
+            st.info("Basal Application :")
+            i=0
+            for fert in fertilizer:
+                i=i+1
+                st.write(f"{i}. {fert}")
+            if urea2!=0:
+                st.info("Split Application : ")
+                st.info("After 30 days of transplanting:")
+                st.write(f"1. Urea: {round(urea2*area,2)} Kg")
                     
     if selected == 'Irrigation Water Requirement' :
         st.subheader("Irrigation Water Requirement")
