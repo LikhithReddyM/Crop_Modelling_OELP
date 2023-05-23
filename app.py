@@ -561,7 +561,7 @@ def yieldprediction() :
     st.title("CROP MODELLING")
     st.header("Crop Yield Prediction")
     with st.sidebar:
-        selected = option_menu("Model Selection", ['CNN', 'LSTM', 'BiLSTM'])
+        selected = option_menu("Model Selection", ['BiLSTM(Recommended)', 'CNN', 'LSTM'])
         st.button("Back to Main Page", on_click = cb_main_home)
 
     st.info("Please enter the required details")
@@ -580,7 +580,7 @@ def yieldprediction() :
             json_file.close()
             loaded_model = model_from_json(loaded_model_json)
             loaded_model.load_weights("lstm_model.h5")
-        elif selected == 'BiLSTM':
+        elif selected == 'BiLSTM(Recommended)':
             json_file = open('bidirectional_model.json', 'r')
             loaded_model_json = json_file.read()
             json_file.close()
