@@ -15,7 +15,7 @@ def EnotT(T):
     temp = temp / (T + 237.3)
     return 0.6108 * math.exp(temp)
 
-def ETnot(Tmax, Tmin, RHmin, RHmax, z, J, latirad, n, uz, G):
+def ETnot(Tmax, Tmin, RHmin, RHmax, z, Rn, J, latirad, n, uz, G):
     Tmean = (Tmax + Tmin) / 2
     Es = (EnotT(Tmax) + EnotT(Tmin)) / 2
     Ea = ((EnotT(Tmin)* (RHmax/100)) + (EnotT(Tmax)* (RHmin/100)))/2
@@ -24,32 +24,33 @@ def ETnot(Tmax, Tmin, RHmin, RHmax, z, J, latirad, n, uz, G):
     P = 101.3 * math.pow(293 - 0.0065*z, 5.26)
     P = P / math.pow(293, 5.26)
     gamma = 0.665 * math.pow(10, -3) * P
-    dr = 1 + 0.033 * math.cos(0.017205479 * J)
-    delta = 0.409 * math.sin((0.017205479 * J) - 1.39)
-    X = 1 - (math.tan(latirad) * math.tan(latirad))* (math.tan(delta)* math.tan(delta))
-    if X <= 0 :
-        X = 0.00001
-    temp = math.tan(latirad) * math.tan(delta)
-    ws = 1.57 - math.tanh(-temp / math.sqrt(X))
-    Ra = 37.586031361 * dr
-    Ra = Ra * ws * math.sin(latirad) * math.sin(delta)
-    Ra = Ra + (math.cos(latirad) * math.cos(delta) * math.sin(ws))
-    Rso = (0.75 + (2 * math.pow(10, -5)*z)) * Ra
-    N = 7.643312102 * ws
-    Rs = (0.25 + ((0.5 * n)/N))
-    Rns = 0.77 * Rs
-    Tmaxk = Tmax + 273
-    Tmink = Tmin + 273
-    Rnl = (4.903 * math.pow(10,-9)) * ((math.pow(Tmaxk, 4) + math.pow(Tmink, 4))/2)
-    Rnl = Rnl * (0.34 - 0.14 * math.sqrt(Ea))
-    Rnl = Rnl * ((1.35 * (Rs/Rso)) - 0.35)
-    Rn = Rns - Rnl
+    if Rn==0 and (J!=0 or latirad!=0 or n!=0):
+        dr = 1 + 0.033 * math.cos(0.017205479 * J)
+        delta2 = 0.409 * math.sin((0.017205479 * J) - 1.39)
+        X = 1 - (math.tan(latirad) * math.tan(latirad))* (math.tan(delta2)* math.tan(delta2))
+        if X <= 0 :
+            X = 0.00001
+        temp = math.tan(latirad) * math.tan(delta2)
+        ws = 1.57 - math.tanh(-temp / math.sqrt(X))
+        Ra = 37.586031361 * dr
+        Ra = Ra * ws * math.sin(latirad) * math.sin(delta2)
+        Ra = Ra + (math.cos(latirad) * math.cos(delta2) * math.sin(ws))
+        Rso = (0.75 + (2 * math.pow(10, -5)*z)) * Ra
+        N = 7.643312102 * ws
+        Rs = (0.25 + ((0.5 * n)/N))
+        Rns = 0.77 * Rs
+        Tmaxk = Tmax + 273
+        Tmink = Tmin + 273
+        Rnl = (4.903 * math.pow(10,-9)) * ((math.pow(Tmaxk, 4) + math.pow(Tmink, 4))/2)
+        Rnl = Rnl * (0.34 - 0.14 * math.sqrt(Ea))
+        Rnl = Rnl * ((1.35 * (Rs/Rso)) - 0.35)
+        Rn = Rns - Rnl
     u2 = uz * (4.87)
     if 67.8 * z - 5.42 > 0 : 
-          u2 = u2 / math.log(67.8 * z - 5.42)
+        u2 = u2 / math.log(67.8 * z - 5.42)
     else :
-          u2 = 0
-    ET0 = (0.408 * delta * (Rn - G)) + (gamma * (900/(Tmean + 273)) * u2 * (Es - Ea))
+        u2 = 0
+    # ET0 = (0.408 * delta * (Rn - G)) + (gamma * (900/(Tmean + 273)) * u2 * (Es - Ea))
     ET0 = ET0 / ( delta + (gamma * (1 + (0.34 * u2))))
     return ET0
 
@@ -539,19 +540,25 @@ def advisoryhome() :
         st.subheader("Irrigation Water Requirement")
         st.info("Please enter the required details")
         crop = st.selectbox('Type of Crop',('Corn', 'Soybean', 'Tomato', 'Okra', 'Chilli', 'Cowpea'))
-        # Tmax, Tmin, RHmin, RHmax, z, J, latirad, n, uz, G, IrrigationInterval, Timeofseason, P
-        tmax = st.number_input("Maximum temperature in Celsius", format="%f")
-        tmin = st.number_input("Minimum temperature in Celsius", format="%f")
-        RHmin = st.number_input("Minimum Relative Humidity in percent", format = "%f", min_value = 0.00, max_value = 100.00)
-        RHmax = st.number_input("Maximum Relative Humidity in percent", format = "%f", min_value = 0.00, max_value = 100.00)
-        z = st.number_input("Elevation above sea level in meters", format = "%f")
-        latirad = st.number_input("Latitude of Plantation area in radian" , format = "%f")
-        n = st.number_input("Sunshine duration in hr", format = "%f")
-        uz = st.number_input("Measured Wind Speed at the plantation area height above ground surface in m/s", format = "%f")
-        G = st.number_input("Ground heat flux in Plantation Area in (W m−2)")
-        IrrigationInterval = st.number_input("Irrigation Interval in days", step = 1, min_value = 2, max_value = 3)
-        Timeofseason = st.number_input("Time of Season in days", step = 1, min_value = 0)
-        P = st.number_input("Rainfall in mm", format = "%f")
+        pan = st.selectbox('Is Pan evaporimeter installed',('Yes', 'No'))
+        if pan == 'Yes':
+            st.number_input("Pan evaporation in mm/day", format="%f")
+            st.number_input("Pan coefficient", format="%f")
+        else:
+            
+            # Tmax, Tmin, RHmin, RHmax, z, J, latirad, n, uz, G, IrrigationInterval, Timeofseason, P
+            tmax = st.number_input("Maximum temperature in Celsius", format="%f")
+            tmin = st.number_input("Minimum temperature in Celsius", format="%f")
+            RHmin = st.number_input("Minimum Relative Humidity in percent", format = "%f", min_value = 0.00, max_value = 100.00)
+            RHmax = st.number_input("Maximum Relative Humidity in percent", format = "%f", min_value = 0.00, max_value = 100.00)
+            z = st.number_input("Elevation above sea level in meters", format = "%f")
+            latirad = st.number_input("Latitude of Plantation area in radian" , format = "%f")
+            n = st.number_input("Sunshine duration in hr", format = "%f")
+            uz = st.number_input("Measured Wind Speed at the plantation area height above ground surface in m/s", format = "%f")
+            G = st.number_input("Ground heat flux in Plantation Area in (W m−2)")
+            IrrigationInterval = st.number_input("Irrigation Interval in days", step = 1, min_value = 2, max_value = 3)
+            Timeofseason = st.number_input("Time of Season in days", step = 1, min_value = 0)
+            P = st.number_input("Rainfall in mm", format = "%f")
         check = st.button("Submit")
         if check :
                 st.success("Submitted")
